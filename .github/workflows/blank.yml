@@ -12,12 +12,13 @@ jobs:
       - run: |
           case $GITHUB_REF in
             refs/heads/dev)
-              echo staging
+              CONTAINER_ENV=staging
             ;;
             refs/heads/release)
-              echo integration
+              CONTAINER_ENV=integration
             ;;
             *)
-              echo other
+              CONTAINER_ENV=other
             ;;
           esac
+          echo $CONTAINER_ENV
