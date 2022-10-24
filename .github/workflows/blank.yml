@@ -18,7 +18,11 @@ jobs:
               CONTAINER_ENV=integration
             ;;
             *)
-              CONTAINER_ENV=other
+              if [[ $GITHUB_REF != refs/tags/v* ]] then
+                echo Unexpected GITHUB_REF variable
+                exit 1
+              fi
+              CONTAINER_ENV=production
             ;;
           esac
           echo $CONTAINER_ENV
