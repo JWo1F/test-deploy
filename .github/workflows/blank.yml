@@ -10,18 +10,6 @@ jobs:
     timeout-minutes: 10
     steps:
       - run: |
-          name: Build Release Containers
-on:
-  push:
-    branches: [dev, release]
-  release:
-
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - run: |
           case $GITHUB_REF in
             refs/heads/dev)
               echo staging
