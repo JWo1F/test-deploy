@@ -10,4 +10,20 @@ jobs:
     timeout-minutes: 10
     steps:
       - run: |
-          echo $GITHUB_REF
+          case $GITHUB_REF in
+            refs/heads/dev)
+              CONTAINER_ENV=staging
+            ;;
+            refs/heads/release)
+              CONTAINER_ENV=integration
+            ;;
+            *)
+              if [[ $GITHUB_REF != refs/tags/v* ]]
+              then
+                echo Unexpected GITHUB_REF variable
+                exit 1
+              fi
+              CONTAINER_ENV=production
+            ;;
+          esac
+          echo $CONTAINER_ENV
